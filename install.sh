@@ -8,11 +8,14 @@ aeterna_logo='
  / ____ \  __/ ||  __/ |  | | | | (_| | | |____| | | | | |_| |>  <
 /_/    \_\___|\__\___|_|  |_| |_|\__,_| |______|_|_| |_|\__,_/_/\_\              '
 
-
 clear
 
 echo -e "\n$aeterna_logo\n"
 
 echo -e "\nBeginning Aeterna Installation..."
+
+echo -e "\nChecking for Updates..."
+
+sudo dnf update
 
 source ~/.local/share/aeterna/install/01-repos.sh
