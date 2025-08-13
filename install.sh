@@ -14,3 +14,5 @@ clear
 echo -e "\n$aeterna_logo\n"
 
 echo -e "\nBeginning Aeterna Installation..."
+
+source ~/.local/share/aeterna/install/01-repos.sh
