@@ -12,12 +12,18 @@ clear
 
 echo -e "\n$aeterna_logo\n"
 
+sudo -v
+if [ $? -ne 0 ]; then
+    echo "\nThe Aeterna installation script requires sudo priviledges..."
+    exit 1
+fi
+
 echo -e "\n-- Checking for git..."
 if rpm -q "git" &>/dev/null; then
     echo -e "\n-- Git found!"
 else
     echo -e "\n-- Installing git..."
-    sudo dnf -y install git
+    dnf -y install git
     if [ $? -eq 0 ]; then
         echo -e "\n-- Git installed successfully!"
     else
