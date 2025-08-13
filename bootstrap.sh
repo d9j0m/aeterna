@@ -12,6 +12,13 @@ clear
 
 echo -e "\n$aeterna_logo\n"
 
+# Ensure the underlying system is Fedora
+if ! grep -i "fedora" /et/os-release; then
+    echo -e "\nError: Aeterna Linux installation requires a Fedora-based system."
+    exit 1
+fi
+
+# Check for sudo privs and cache credentials 
 sudo -v
 if [ $? -ne 0 ]; then
     echo "\nThe Aeterna installation script requires sudo priviledges..."
