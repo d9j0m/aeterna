@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Ensure the underlying system is Fedora
-if ! grep -i "fedora" /et/os-release; then
+if ! grep -i "fedora" /etc/os-release; then
     echo -e "\nError: Aeterna Linux installation requires a Fedora-based system."
     exit 1
 fi
