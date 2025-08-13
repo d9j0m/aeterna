@@ -32,12 +32,12 @@ else
     fi
 fi
 
-#echo -e "\n-- Cloning Aeterna Linux Github Repo For Installation..."
+echo -e "\n-- Cloning Aeterna Linux Github Repo For Installation..."
 
-#rm -rf ~/.local/share/aeterna/
+rm -rf ~/.local/share/aeterna/
 
-#git clone "https://github.com/d9j0m/aeterna.git" ~/.local/share/aeterna > /dev/null
+git clone "https://github.com/d9j0m/aeterna.git" ~/.local/share/aeterna > /dev/null
 
-#echo -e "\nStarting Aeterna Linux Installation..."
+echo -e "\nStarting Aeterna Linux Installation..."
 
-#source ~/.local/share/aeterna/install.sh
+source ~/.local/share/aeterna/install.sh
