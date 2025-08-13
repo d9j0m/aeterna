@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Ensure the underlying system is Fedora
-if ! grep -i "fedora" /etc/os-release; then
+if ! grep -iq "fedora" /etc/os-release; then
     echo -e "\nError: Aeterna Linux installation requires a Fedora-based system."
     exit 1
 fi
@@ -9,7 +9,7 @@ fi
 # Check for sudo privs and cache credentials 
 sudo -v
 if [ $? -ne 0 ]; then
-    echo "\nThe Aeterna installation script requires sudo priviledges..."
+    echo -e "\nThe Aeterna installation script requires sudo priviledges..."
     exit 1
 fi
 
