@@ -13,26 +13,26 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo -e "\n-- Checking for git..."
+echo -e "\n- Checking for git..."
 if rpm -q "git" &>/dev/null; then
-  echo -e "\n-- Git found!"
+  echo -e "\n- Git found!"
 else
-  echo -e "\n-- Installing git..."
+  echo -e "\n- Installing git..."
   dnf -y install git
   if [ $? -eq 0 ]; then
-    echo -e "\n-- Git installed successfully!"
+    echo -e "\n- Git installed successfully!"
   else
-    echo -e "\n-- Failed to install git."
+    echo -e "\n- Failed to install git."
     exit 1
   fi
 fi
 
-echo -e "\n-- Cloning Aeterna Linux Github Repo For Installation..."
+echo -e "\n- Cloning Aeterna Linux Github Repo For Installation..."
 
 rm -rf ~/.local/share/aeterna/
 
 git clone "https://github.com/d9j0m/aeterna.git" ~/.local/share/aeterna >/dev/null
 
-echo -e "\n-- Starting Aeterna Linux Installation..."
+echo -e "\n- Starting Aeterna Linux Installation..."
 
 source ~/.local/share/aeterna/install.sh
