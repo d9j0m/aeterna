@@ -12,9 +12,9 @@ clear
 
 echo -e "\n$aeterna_logo\n"
 
-echo -e "\nBeginning Aeterna Installation..."
+echo -e "\n-- Beginning Aeterna Installation..."
 
-echo -e "\nChecking for Updates..."
+echo -e "\n-- Checking for Updates..."
 
 sudo dnf update
 

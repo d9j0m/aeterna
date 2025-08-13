@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo -e "\nConfiguring Fedora Repos..."
+echo -e "\n-- Configuring Fedora Repos..."
 
 if ! dnf repolist | grep -q "rpmfusion-free"; then
   echo "Enabling RPM Fusion Free repository..."
