@@ -9,23 +9,23 @@ command_exists() {
 }
 
 # Install required tools (pciutils, usbutils) if not installed
-echo -e "\nInstalling lspci and lsusb..."
+echo -e "\n-- Installing lspci and lsusb..."
 if ! rpm -q pciutils >/dev/null 2>&1; then
-  echo -e "\nInstalling pciutils..."
+  echo -e "\n-- Installing pciutils..."
   sudo dnf install -y pciutils
 else
-  echo -e "\npciutils is already installed."
+  echo -e "\n-- pciutils is already installed."
 fi
 
 if ! rpm -q usbutils >/dev/null 2>&1; then
-  echo -e "\nInstalling usbutils..."
+  echo -e "\n-- Installing usbutils..."
   sudo dnf install -y usbutils
 else
-  echo -e "\nusbutils is already installed."
+  echo -e "\n-- usbutils is already installed."
 fi
 
 # Identify wireless chipset
-echo -e "\nDetecting wireless chipset..."
+echo -e "\n-- Detecting wireless chipset..."
 WIRELESS_INFO=""
 if command_exists lspci; then
   WIRELESS_INFO=$(lspci -nn | grep -iE "network|wireless" || true)
@@ -36,10 +36,10 @@ if command_exists lsusb && [ -z "$WIRELESS_INFO" ]; then
 fi
 
 if [ -z "$WIRELESS_INFO" ]; then
-  echo -e "\nError: No wireless card detected. Please check hardware and try again."
+  echo -e "\n-- Error: No wireless card detected. Please check hardware and try again."
   exit 1
 fi
-echo -e "\nDetected wireless device: $WIRELESS_INFO"
+echo -e "\n-- Detected wireless device: $WIRELESS_INFO"
 
 # Determine chipset and corresponding firmware package
 FIRMWARE_PACKAGE=""
@@ -67,8 +67,8 @@ elif echo "$WIRELESS_INFO" | grep -qi "atmel"; then
 elif echo "$WIRELESS_INFO" | grep -qi "texas instruments"; then
   FIRMWARE_PACKAGE="tiwilink-firmware"
 else
-  echo -e "\nError: Unsupported or unrecognized wireless chipset. Please check manually."
-  echo -e "\nTry visiting https://wireless.kernel.org/en/users/Drivers for more info."
+  echo -e "\n-- Error: Unsupported or unrecognized wireless chipset. Please check manually."
+  echo -e "\n-- Try visiting https://wireless.kernel.org/en/users/Drivers for more info."
   exit 1
 fi
 
@@ -84,25 +84,25 @@ done
 
 # Install iwd if not installed
 if ! rpm -q iwd >/dev/null 2>&1; then
-  echo -e "\nInstalling iwd..."
+  echo -e "\n-- Installing iwd..."
   sudo dnf install -y iwd
 else
-  echo -e "\niwd is already installed."
+  echo -e "\n-- iwd is already installed."
 fi
 
 # Disable wpa_supplicant to avoid conflicts with iwd
 if sudo systemctl is-active --quiet wpa_supplicant; then
-  echo -e "\nDisabling and stopping wpa_supplicant..."
+  echo -e "\n-- Disabling and stopping wpa_supplicant..."
   sudo systemctl disable --now wpa_supplicant
 else
-  echo -e "\nwpa_supplicant is already disabled or not running."
+  echo -e "\n-- wpa_supplicant is already disabled or not running."
 fi
 
 # Create NetworkManager conf.d directory and unmanaged.conf file
-echo -e "\nConfiguring NetworkManager to ignore WiFi..."
+echo -e "\n-- Configuring NetworkManager to ignore WiFi..."
 mkdir -p /etc/NetworkManager/conf.d
 if [ -f /etc/NetworkManager/conf.d/unmanaged.conf ]; then
-  echo -e "\nBacking up existing NetworkManager unmanaged.conf..."
+  echo -e "\n-- Backing up existing NetworkManager unmanaged.conf..."
   cp /etc/NetworkManager/conf.d/unmanaged.conf /etc/NetworkManager/conf.d/unmanaged.conf.bak-$(date +%F-%H%M%S)
 fi
 cat <<EOF | tee /etc/NetworkManager/conf.d/unmanaged.conf
@@ -111,14 +111,14 @@ unmanaged-devices=type:wifi
 EOF
 
 # Restart NetworkManager
-echo -e "\nRestarting NetworkManager..."
+echo -e "\n-- Restarting NetworkManager..."
 sudo systemctl restart NetworkManager
 
 # Create /etc/iwd/main.conf with IPv6 disabled
-echo -e "\nCreating iwd configuration file..."
+echo -e "\n-- Creating iwd configuration file..."
 mkdir -p /etc/iwd
 if [ -f /etc/iwd/main.conf ]; then
-  echo -e "\nBacking up existing iwd configuration..."
+  echo -e "\n-- Backing up existing iwd configuration..."
   cp /etc/iwd/main.conf /etc/iwd/main.conf.bak-$(date +%F-%H%M%S)
 fi
 cat <<EOF | tee /etc/iwd/main.conf
@@ -130,24 +130,24 @@ EOF
 
 # Enable and start iwd
 if ! sudo systemctl is-active --quiet iwd; then
-  echo -e "\nEnabling and starting iwd..."
+  echo -e "\n-- Enabling and starting iwd..."
   sudo systemctl enable --now iwd
 else
-  echo -e "\niwd is already enabled and running."
+  echo -e "\n-- iwd is already enabled and running."
 fi
 
 # Install Cargo if not installed
 if ! rpm -q cargo >/dev/null 2>&1; then
-  echo -e "\nInstalling Cargo..."
+  echo -e "\n-- Installing Cargo..."
   sudo dnf install -y cargo
 else
-  echo -e "\nCargo is already installed."
+  echo -e "\n-- Cargo is already installed."
 fi
 
 # Install impala system-wide
 if [ ! -f /usr/local/bin/impala ] || ! /usr/local/bin/impala --version >/dev/null 2>&1; then
-  echo -e "\nInstalling Impala system-wide to /usr/local/bin..."
+  echo -e "\n-- Installing Impala system-wide to /usr/local/bin..."
   cargo install impala --root /usr/local --force
 else
-  echo -e "\nImpala is already installed system-wide."
+  echo -e "\n-- Impala is already installed system-wide."
 fi
