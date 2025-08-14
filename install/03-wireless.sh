@@ -9,7 +9,7 @@ command_exists() {
 }
 # Install required tools
 echo "Installing lspci and lsusb..."
-sudo dnf install pciutils usbutils -y
+sudo dnf install -y pciutils usbutils
 
 # Identify wireless chipset
 echo "Detecting wireless chipset..."
@@ -61,11 +61,11 @@ fi
 
 # Install NetworkManager-wifi and firmware
 echo "Installing NetworkManager-wifi and firmware package(s): $FIRMWARE_PACKAGE..."
-sudo dnf install NetworkManager-wifi $FIRMWARE_PACKAGE -y
+sudo dnf install -y NetworkManager-wifi $FIRMWARE_PACKAGE
 
 # Install iwd
 echo "Installing iwd..."
-sudo dnf install iwd -y
+sudo dnf install -y iwd
 
 # Create NetworkManager conf.d directory and unmanaged.conf file
 echo "Configuring NetworkManager to ignore WiFi..."
@@ -95,7 +95,7 @@ sudo systemctl enable --now iwd
 
 # Install Cargo
 echo "Installing Cargo..."
-sudo dnf install cargo -y
+sudo dnf install -y cargo
 
 # Install Impala system-wide
 echo "Installing Impala system-wide to /usr/local/bin..."
