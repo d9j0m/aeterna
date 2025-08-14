@@ -39,7 +39,8 @@ if [ -z "$WIRELESS_INFO" ]; then
   echo -e "\n-- Error: No wireless card detected. Please check hardware and try again."
   exit 1
 fi
-echo -e "\n-- Detected wireless device: $WIRELESS_INFO"
+echo -e "\n-- Detected wireless device: "
+echo -e "$WIRELESS_INFO"
 
 # Determine chipset and corresponding firmware package
 FIRMWARE_PACKAGE=""
