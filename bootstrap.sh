@@ -18,7 +18,7 @@ if rpm -q "git" &>/dev/null; then
   echo -e "\n- Git found!"
 else
   echo -e "\n- Installing git..."
-  dnf -y install git
+  sudo dnf -y install git
   if [ $? -eq 0 ]; then
     echo -e "\n- Git installed successfully!"
   else
