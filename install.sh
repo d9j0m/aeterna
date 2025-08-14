@@ -18,7 +18,10 @@ echo -e "\n- Checking for Updates..."
 
 sudo dnf update
 
-source ~/.local/share/aeterna/install/01-repos.sh
-source ~/.local/share/aeterna/install/02-dotfiles.sh
-source ~/.local/share/aeterna/install/03-wireless.sh
-source ~/.local/share/aeterna/install/04-power-profile.sh
+source ~/.local/share/aeterna/install/repos.sh
+source ~/.local/share/aeterna/install/wireless.sh
+source ~/.local/share/aeterna/install/power-profile.sh
+#source ~/.local/share/aeterna/install/dotfiles.sh
+
+echo -e "\n- Installation Complete! Rebooting..."
+reboot
